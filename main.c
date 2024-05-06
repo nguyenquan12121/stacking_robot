@@ -65,14 +65,14 @@ void set74HC595Pins(int dir_latch, int dir_clk, int dir_ser) {
 }
 
 void setL293DPins(int PWM0A, int PWM0B, int PWM2A, int PWM2B) {
-        MOTORS[1][PIN] = PWM0B;
-        MOTORS[2][PIN] = PWM0A;
-        MOTORS[3][PIN] = PWM2A;
-        MOTORS[4][PIN] = PWM2B;
-        pinMode(PWM0A, OUTPUT);
-        pinMode(PWM0B, OUTPUT);
-        pinMode(PWM2A, OUTPUT);
-        pinMode(PWM2B, OUTPUT);
+    MOTORS[1][PIN] = PWM0B;
+    MOTORS[2][PIN] = PWM0A;
+    MOTORS[3][PIN] = PWM2A;
+    MOTORS[4][PIN] = PWM2B;       
+    pinMode(PWM0A, OUTPUT);
+    pinMode(PWM0B, OUTPUT);
+    pinMode(PWM2A, OUTPUT);
+    pinMode(PWM2B, OUTPUT);
 }
 
 void runDCMotor(int dcMotor, int direction, int speed) {
@@ -143,9 +143,7 @@ int main() {
     stopDCMotor(DC_Motor_4);
     printf("STOPPING MOTORS\n");
     delay(2000);
-        // idk gotta the pins everytime
-    set74HC595Pins(21, 20, 16);
-    setL293DPins(5, 6, 13, 19);
+
     printf("RUNNING MOTOR 1 COUNTER-CLOCKWISE \n");
     runDCMotor(DC_Motor_1, counterclockwise, 50);
     runDCMotor(DC_Motor_2, counterclockwise, 50);
