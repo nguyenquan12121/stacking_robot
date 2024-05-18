@@ -1,23 +1,23 @@
-class BoxQueue:
+class Stack:
     def __init__(self):
-        self.queue = []
+        self.stack = []
 
-    def enqueue(self, box):
-        self.queue.append(box)
+    def add_box(self, box):
+        box.set_position(3)
+        self.stack.append(box)
 
-    def dequeue(self):
+    def pop(self):
         if not self.is_empty():
-            return self.queue.pop(0)
+            return self.stack.pop()
         else:
-            raise IndexError("Queue is empty")
+            raise IndexError("Stack is empty")
 
     def is_empty(self):
-        return len(self.queue) == 0
+        return len(self.stack) == 0
 
     def size(self):
-        return len(self.queue)
+        return len(self.stack)
     
     def print_boxes(self):
-        for box in self.queue:
-            print(box)
-
+        for item in self.stack:
+            print(item.print_box())
