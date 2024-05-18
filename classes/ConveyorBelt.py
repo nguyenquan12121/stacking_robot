@@ -7,10 +7,10 @@ class ConveyorBelt:
         self.duration = duration
         self.motor_value = motor_value
         self.boxes = BoxQueue()
-        
+        self.direction = 1
 
     def serial_command(self):
-        send_command(self.motor_value, self.speed, self.duration)
+        send_command(self.motor_value, self.speed, self.duration, self.direction)
 
     def set_values(self, speed, duration, motor_value):
         self.speed = speed

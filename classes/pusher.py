@@ -8,7 +8,7 @@ class Pusher:
         self.box = None
 
     def serial_command(self):
-        send_command(self.motor_value, self.speed, self.duration)
+        send_command(self.motor_value, self.speed, self.duration, self.direction)
         
     def print_boxes(self):
         if self.box == None:
@@ -19,6 +19,7 @@ class Pusher:
     def add_box(self, box):
         box.set_location(2)
         self.box = box
+        self.direction = 1
 
     def remove_box(self):
         box = self.box
