@@ -11,8 +11,16 @@ class Pusher:
         send_command(self.motor_value, self.speed, self.duration)
         
     def print_boxes(self):
-        print(self.box.print_box())
+        if self.box == None:
+            print("Pusher is empty")
+        else:
+            self.box.print_box()
 
     def add_box(self, box):
-        box.set_position(2)
+        box.set_location(2)
         self.box = box
+
+    def remove_box(self):
+        box = self.box
+        self.box = None
+        return box

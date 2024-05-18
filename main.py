@@ -15,31 +15,44 @@ Pusher = Pusher(100, 50, 3)
 BoxQueue = BoxQueue()
 Stack = Stack()
 
-
 testbox = Box(1, 0)
+box_id = 0
 
 print("Welcome to the box sorter!")
 
 while True:
-    sleep(1)
-    ConveyorBelt.add_box(testbox)
+    command = int(input("1, 2, 3, 4: for the sensors:"))
+    #sensor 1: add to the conveyor belt
+    if command == 1:
+        new_box = Box(box_id, 0)
+        box_id += 1
+        ConveyorBelt.add_box(new_box)
+
+    #sensor 2: add to the elevator
+    elif command == 2 and ConveyorBelt.boxes.is_empty() == False:
+        if Elevator.box != None:
+            print("Elevator is full")
+            continue
+        box = ConveyorBelt.remove_box()
+        Elevator.add_box(box)
+
+    #sensor 3: add to the pusher
+    elif command == 3 and Elevator.box != None:
+        if Pusher.box != None:
+            print("Pusher is full")
+            continue
+        box = Elevator.remove_box()
+        Pusher.add_box(box)
+
+    #sensor 4: add to the storage
+    elif command == 4 and Pusher.box != None:
+        box = Pusher.remove_box()
+        Stack.add_box(box)
+
     ConveyorBelt.print_boxes()
-    sleep(1)
-    #remove the box from the conveyor belt
-    #add to the elevator    
-    Elevator.add_box(testbox)
     Elevator.print_boxes()
-    sleep(1)
-    #remove the box from the elevator
-    #add to the pusher
-    Pusher.add_box(testbox)
     Pusher.print_boxes()
-    sleep(1)
-    #remove the box from the pusher
-    #add to the storage
-    Stack.add_box(testbox)
     Stack.print_boxes()
-    sleep(1)
 
 
 

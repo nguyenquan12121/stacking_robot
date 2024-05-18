@@ -19,5 +19,5 @@ class BoxQueue:
     
     def print_boxes(self):
         for box in self.queue:
-            print(box.print_box())
+            box.print_box()
 

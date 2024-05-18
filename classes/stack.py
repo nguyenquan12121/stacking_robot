@@ -3,7 +3,7 @@ class Stack:
         self.stack = []
 
     def add_box(self, box):
-        box.set_position(3)
+        box.set_location(3)
         self.stack.append(box)
 
     def pop(self):
@@ -19,5 +19,8 @@ class Stack:
         return len(self.stack)
     
     def print_boxes(self):
-        for item in self.stack:
-            print(item.print_box())
+        if self.is_empty():
+            print("Stack is empty")
+        else:
+            for item in self.stack:
+                item.print_box()
