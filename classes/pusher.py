@@ -24,3 +24,8 @@ class Pusher:
         box = self.box
         self.box = None
         return box
+    
+    def set_values(self, speed, duration, motor_value):
+        self.speed = speed
+        self.duration = duration
+        self.motor_value = motor_value

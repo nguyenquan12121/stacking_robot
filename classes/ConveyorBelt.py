@@ -12,6 +12,11 @@ class ConveyorBelt:
     def serial_command(self):
         send_command(self.motor_value, self.speed, self.duration)
 
+    def set_values(self, speed, duration, motor_value):
+        self.speed = speed
+        self.duration = duration
+        self.motor_value = motor_value
+
     def print_boxes(self):
         if self.boxes.is_empty():
             print("Conveyor belt is empty")

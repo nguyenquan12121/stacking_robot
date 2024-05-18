@@ -8,7 +8,7 @@ from classes.Stack import Stack
 from serial import send_command
 from time import sleep
 
-#speed, duration, motor_value, boxes
+#speed, duration, motor_value
 ConveyorBelt = ConveyorBelt(100, 50, 1)
 Elevator = Elevator(100, 50, 2)
 Pusher = Pusher(100, 50, 3)
@@ -21,7 +21,9 @@ box_id = 0
 print("Welcome to the box sorter!")
 
 while True:
+    #await for sensor input
     command = int(input("1, 2, 3, 4: for the sensors:"))
+
     #sensor 1: add to the conveyor belt
     if command == 1:
         new_box = Box(box_id, 0)
@@ -54,5 +56,15 @@ while True:
     Pusher.print_boxes()
     Stack.print_boxes()
 
+    #speed, duration, motor_value
+    ConveyorBelt.set_values(1000, 50, 1)
+    ConveyorBelt.serial_command()
 
+    #set value to time for elevator to reach the top
+    Elevator.set_values(20, 20, 2)
+    Elevator.serial_command()
+
+    #set value to time for pusher to push the box
+    Pusher.set_values(20, 20, 3)
+    Pusher.serial_command()
 
