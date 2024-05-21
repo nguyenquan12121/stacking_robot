@@ -1,4 +1,4 @@
-from serial import send_command
+from serial_motor import send_command
 from classes.BoxQueue import BoxQueue
 
 class ConveyorBelt:
@@ -12,10 +12,11 @@ class ConveyorBelt:
     def serial_command(self):
         send_command(self.motor_value, self.speed, self.duration, self.direction)
 
-    def set_values(self, speed, duration, motor_value):
+    def set_values(self,motor_value, speed, duration, direction):
         self.speed = speed
         self.duration = duration
         self.motor_value = motor_value
+        self.direction = direction
 
     def print_boxes(self):
         if self.boxes.is_empty():
