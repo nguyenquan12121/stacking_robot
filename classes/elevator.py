@@ -1,4 +1,4 @@
-from serial import send_command
+from serial_motor import send_command
 
 class Elevator:
     def __init__(self, speed, duration, motor_value):

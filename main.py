@@ -1,17 +1,16 @@
-from classes.Elevator import Elevator
-from classes.Pusher import Pusher
-from classes.Box import Box
+from classes.elevator import Elevator
+from classes.pusher import Pusher
+from classes.box import Box
 from classes.BoxQueue import BoxQueue
 from classes.ConveyorBelt import ConveyorBelt
-from classes.Stack import Stack
+from classes.stack import Stack
 
-from serial import send_command
 from time import sleep
 
 #speed, duration, motor_value
-ConveyorBelt = ConveyorBelt(100, 50, 1)
-Elevator = Elevator(100, 50, 2)
-Pusher = Pusher(100, 50, 3)
+ConveyorBelt = ConveyorBelt(240, 5000, 1)
+Elevator = Elevator(240, 4000, 2)
+Pusher = Pusher(240, 3000, 3)
 BoxQueue = BoxQueue()
 Stack = Stack()
 
@@ -29,6 +28,7 @@ while True:
         new_box = Box(box_id, 0)
         box_id += 1
         ConveyorBelt.add_box(new_box)
+        ConveyorBelt.serial_command()
 
     #sensor 2: add to the elevator
     elif command == 2 and ConveyorBelt.boxes.is_empty() == False:
@@ -37,7 +37,7 @@ while True:
             continue
         box = ConveyorBelt.remove_box()
         Elevator.add_box(box)
-
+        Elevator.serial_command()
     #sensor 3: add to the pusher
     elif command == 3 and Elevator.box != None:
         if Pusher.box != None:
@@ -45,7 +45,7 @@ while True:
             continue
         box = Elevator.remove_box()
         Pusher.add_box(box)
-
+        Pusher.serial_command()
     #sensor 4: add to the storage
     elif command == 4 and Pusher.box != None:
         box = Pusher.remove_box()
@@ -57,14 +57,11 @@ while True:
     Stack.print_boxes()
 
     #speed, duration, motor_value
-    ConveyorBelt.set_values(1000, 50, 1)
-    ConveyorBelt.serial_command()
-
-    #set value to time for elevator to reach the top
-    Elevator.set_values(20, 20, 2)
-    Elevator.serial_command()
-
-    #set value to time for pusher to push the box
-    Pusher.set_values(20, 20, 3)
-    Pusher.serial_command()
-
+#    ConveyorBelt.set_values(1000, 50, 1)
+#
+#    #set value to time for elevator to reach the top
+#    Elevator.set_values(20, 20, 2)
+#
+#    #set value to time for pusher to push the box
+#    Pusher.set_values(20, 20, 3)
+#
