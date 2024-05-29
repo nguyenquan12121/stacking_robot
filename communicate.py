@@ -8,7 +8,7 @@
 
 # Example of a Python UDP server
 
-import UdpComms as U
+import classes.UdpComms as U
 import time
 
 # Create UDP socket to use for sending (and receiving)
@@ -16,5 +16,11 @@ sock = U.UdpComms(udpIP="127.0.0.1", portTX=8000, portRX=8001, enableRX=False, s
 
 while True:
     sock.SendData('Action: conveyor active') # Send this string to other application
+    print("Conveyor active")
+
+    time.sleep(5)
 
     sock.SendData('Action: conveyor disable') # Send this string to other application
+    print("Conveyor disabled")
+
+    time.sleep(5)
