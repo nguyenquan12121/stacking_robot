@@ -38,6 +38,7 @@ class Client(threading.Thread):
                 result = str(data.decode("utf-8"))
                 with open("state.txt", "w") as f:
                     f.write(str(result))
+                    
                 print("ID " + str(self.id) + ": " + str(data.decode("utf-8")))
                 for client in connections:
                     if client.id != self.id:
