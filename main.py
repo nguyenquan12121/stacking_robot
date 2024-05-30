@@ -4,7 +4,7 @@ import os
 def run_script(script):
     os.system(f'python {script}')
 
-file1 = 'run_sensors.py'
+file1 = 'server.py'
 file2 = 'run_machine.py'
 
 
