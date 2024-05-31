@@ -7,7 +7,7 @@ def send_command(command, speed, duration, direction):
    ser.flush()
    print(f"waiting for {delay}")
    time.sleep(delay)
-   ser.write(str.encode("{command}-{speed}-{duration}-{direction}\n"))
+   ser.write(str.encode(f"{command}-{speed}-{duration}-{direction}\n"))
    print(f"Sending command: {command}-{speed}-{duration}-{direction}")
 
    if ser.in_waiting > 0:
