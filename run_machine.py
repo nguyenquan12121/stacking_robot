@@ -19,11 +19,15 @@ def read_input() -> list:
 if __name__ == "__main__":
     
     #speed, duration, motor_value
-    ConveyorBelt = ConveyorBelt(240, 5000, 1)
-    Elevator = Elevator(240, 4000, 2)
-    Pusher = Pusher(240, 3000, 3)
+    ConveyorBelt = ConveyorBelt()
+
+    Elevator = Elevator()
+
+    Pusher = Pusher()
+
     BoxQueue = BoxQueue()
     Stack = Stack()
+    
     box_id = 0
     print("Welcome to the box sorter!")
 

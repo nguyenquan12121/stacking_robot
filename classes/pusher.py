@@ -1,14 +1,14 @@
 from serial_motor import send_command
 
 class Pusher:
-    def __init__(self, speed, duration, motor_value):
-        self.speed = speed
-        self.duration = duration
-        self.motor_value = motor_value
+    def __init__(self):
         self.box = None
 
-    def serial_command(self):
-        send_command(self.motor_value, self.speed, self.duration, self.direction)
+    def serial_command_push(self):
+        send_command(1, 100, 1000, 2)
+
+    def serial_command_pull(self):
+        send_command(1, 100, 1000, 1)
         
     def print_boxes(self):
         if self.box == None:
@@ -25,9 +25,3 @@ class Pusher:
         box = self.box
         self.box = None
         return box
-
-    def set_values(self,motor_value, speed, duration, direction):
-        self.speed = speed
-        self.duration = duration
-        self.motor_value = motor_value
-        self.direction = direction

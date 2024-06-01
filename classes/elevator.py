@@ -1,16 +1,36 @@
 from serial_motor import send_command
 
 class Elevator:
-    def __init__(self, speed, duration, motor_value):
-        self.speed = speed
-        self.duration = duration
-        self.motor_value = motor_value
+    def __init__(self):
         self.box = None
-        self.direction = 1
+        self.pos = 0
 
-    def serial_command(self):
-        send_command(self.motor_value, self.speed, self.duration, self.direction)
+    def serial_command_up_3(self):
+        send_command(2, 250, 9000, 1)
+        self.pos = 3
+
+    def serial_command_up_2(self):
+        send_command(2, 250, 7500, 1)
+        self.pos = 2
     
+    def serial_command_up_1(self):
+        send_command(2, 250, 4000, 1)
+        self.pos = 1
+    
+    def serial_command_down(self):
+        if (self.pos == 3):
+            send_command(2, 250, 4000, 2)
+        
+        if (self.pos == 2):
+            send_command(0, 0, 0, 2) # TODO: GET VALUES
+
+        if (self.pos == 1):
+            send_command(0, 0, 0, 2) # TODO: GET VALUES
+
+    
+    def return_position(self):
+        return self.pos
+
     def print_boxes(self):
         if self.box == None:
             print("Elevator is empty")
@@ -26,9 +46,3 @@ class Elevator:
         self.box = None
         return box
     
-    def set_values(self,motor_value, speed, duration, direction):
-        self.speed = speed
-        self.duration = duration
-        self.motor_value = motor_value
-        self.direction = direction
-        
