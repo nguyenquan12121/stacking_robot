@@ -34,15 +34,24 @@ class Client(threading.Thread):
                 self.signal = False
                 connections.remove(self)
                 break
+            
             if data != "":
                 result = str(data.decode("utf-8"))
                 with open("state.txt", "w") as f:
                     f.write(str(result))
                     
                 print("ID " + str(self.id) + ": " + str(data.decode("utf-8")))
-                for client in connections:
-                    if client.id != self.id:
-                        client.socket.sendall(data)
+                #for client in connections:
+                #    if client.id != self.id:
+                #        client.socket.sendall(data)
+
+
+    def send_data(connections, data):
+        try:
+            self.socket.sendall(str.encode(data))
+        except:
+            print("Error sending data")
+            
 
 #Wait for new connections
 def newConnections(socket):

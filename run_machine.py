@@ -5,8 +5,10 @@ from classes.BoxQueue import BoxQueue
 from classes.ConveyorBelt import ConveyorBelt
 from classes.stack import Stack
 from time import sleep
+from server import Client
 import asyncio
-
+import socket
+import threading
 
 def read_input() -> list:
     speed = int(input("Input speed: "))
@@ -14,32 +16,55 @@ def read_input() -> list:
     direction = int(input("Input direction: "))
     return [speed, duration, direction]
 
+# List to store clients
+clients = ["p"]
+
+# Wait for new connections
+def newConnections(socket):
+    while True:
+        sock, address = socket.accept()
+        client = Client(sock, address, 1, "Name", True)
+        client.start()
+        clients.append(client)  # Add the client to the list
 
 def run_each_component():
-    ConveyorBelt.serial_command()
+    if clients != []:
+        #client = clients[0]
+        #client.send_data("conveyor active")
+        ConveyorBelt.serial_command()
 
-    sleep(1)
+        sleep(1)
 
-    Elevator.serial_command_up_3()
+        Elevator.serial_command_up_3()
 
-    sleep(1)
+        sleep(1)
 
-    Pusher.serial_command_push()
+        Pusher.serial_command_push()
 
-    sleep(1)
+        sleep(1)
 
-    Pusher.serial_command_pull()
+        Pusher.serial_command_pull()
 
-    sleep(1)
+        sleep(1)
 
-    Elevator.serial_command_down()
+        Elevator.serial_command_down()
 
-    sleep(1)
-
+        sleep(1)
+    else:
+        print("No clients connected.")
 
 if __name__ == "__main__":
-    
-    #speed, duration, motor_value
+
+    #host = "localhost"
+    #port = 5005
+#
+    #sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    #sock.bind((host, port))
+    #sock.listen(5)
+#
+    #newConnectionsThread = threading.Thread(target=newConnections, args=(sock,))
+    #newConnectionsThread.start()
+
     ConveyorBelt = ConveyorBelt()
 
     Elevator = Elevator()
@@ -53,6 +78,9 @@ if __name__ == "__main__":
     print("Welcome to the box sorter!")
 
     run_each_component()
+
+    sock.close()
+    sys.exit(0)
 
     #while True:
 #

@@ -4,7 +4,6 @@ from classes.BoxQueue import BoxQueue
 class ConveyorBelt:
     def __init__(self):
         self.boxes = BoxQueue()
-        self.direction = 1
 
     def serial_command(self):
         send_command(4, 250, 9000, 1)
