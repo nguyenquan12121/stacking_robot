@@ -1,10 +1,10 @@
 position_mapper = ["Conveyor Belt", "Elevator", "Pusher", "Storage"]
 
 class Box:
-    def __init__(self, box_id, location, color):
+    def __init__(self, box_id, location):
         self.box_id = box_id
         self.location = location
-        self.color = color
+        self.color = None
 
     def set_location(self, location):
         self.location = location
