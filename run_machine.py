@@ -99,9 +99,10 @@ if __name__ == "__main__":
             print("IDLING")
         elif command == 0:
             Elevator.serial_reset_position()
-        
+
         #sensor 1: move conveyor belt
         elif command == 1:
+            n = int(input("Floor:"))
             new_box = Box(box_id, 0)
             box_id += 1
             ConveyorBelt.add_box(new_box)
@@ -110,10 +111,23 @@ if __name__ == "__main__":
             Elevator.serial_command_up_1()
             sleep(2)
             ConveyorBelt.serial_command()
-            # inputs = read_input()
-            # ConveyorBelt.set_values(1, inputs[0], inputs[1],inputs[2])
-            # ConveyorBelt.serial_command()
-#
+            sleep(2)
+            Elevator.serial_command_down()
+            sleep(2)
+            if (n == 1):
+                Elevator.serial_command_up_1()
+            if (n == 2):
+                Elevator.serial_command_up_2()
+            if (n == 3):
+                Elevator.serial_command_up_3()
+            sleep(2)
+            Pusher.serial_command_push()
+            sleep(2)
+            Pusher.serial_command_pull()
+            sleep(2)
+            Elevator.serial_command_down()
+            sleep(3)
+            
         #sensor 2: move elevator
         elif command == 2:
         #and ConveyorBelt.boxes.is_empty() == False:
@@ -122,16 +136,8 @@ if __name__ == "__main__":
         #        continue
 #            box = ConveyorBelt.remove_box()
 #            Elevator.add_box(box)
-            Elevator.serial_command_down()
-            sleep(2)
-            n = int(input("Enter the floor number: "))
-            if (n == 1):
-                Elevator.serial_command_up_1()
-            if (n == 2):
-                Elevator.serial_command_up_2()
-            if (n == 3):
-                Elevator.serial_command_up_3()
-
+            
+            print("somethign")
             # inputs = read_input()
             # Elevator.set_values(2, inputs[0], inputs[1], inputs[2])
             # Elevator.serial_command()
@@ -143,9 +149,7 @@ if __name__ == "__main__":
        #         continue
 #            box = Elevator.remove_box()
 #            Pusher.add_box(box)
-            Pusher.serial_command_push()
-            sleep(2)
-            Pusher.serial_command_pull()
+            print("something")
             # inputs = read_input()
             # Pusher.set_values(3, inputs[0], inputs[1], inputs[2])
             # Pusher.serial_command()
