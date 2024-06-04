@@ -31,7 +31,7 @@ def run_each_component():
     if clients != []:
         #client = clients[0]
         #client.send_data("conveyor active")
-        ConveyorBelt.serial_command()
+        ConveyorBelt.serial_command(9000)
 
         sleep(1)
 

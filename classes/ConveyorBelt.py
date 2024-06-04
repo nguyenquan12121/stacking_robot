@@ -5,8 +5,8 @@ class ConveyorBelt:
     def __init__(self):
         self.boxes = BoxQueue()
 
-    def serial_command(self):
-        send_command(4, 250, 9000, 1)
+    def serial_command(self, duration):
+        send_command(4, 250, duration, 1)
 
     def print_boxes(self):
         if self.boxes.is_empty():
