@@ -53,9 +53,9 @@ def detect_and_mark_objects(frame, prev_gray, area, min_contour_area=500, thresh
 
 
 if __name__ == "__main__":
-    prev_gray = [0, 0, 0, 0]
-    monitor_area = [(0, 100, 200, 200), (200, 100, 200, 200), (400, 100, 200, 200)]
-    min_change = [50, 50, 100]
+    prev_gray = [0]
+    monitor_area = [(565, 205, 55, 55)]
+    min_change = [20]
     prev_gray_objects = None
     big_monitor_area = [0, 0, 800, 600]
 
@@ -71,12 +71,15 @@ if __name__ == "__main__":
             # ESC pressed
             print("Escape hit, closing...")
             break
-
-        if ret:
+        
+        if k%256 == 32 or prev_gray_objects is None:
+            # SPACE pressed
             prev_gray[0] = monitor_area_change(frame, prev_gray[0], monitor_area[0], min_change[0], "change", 1)
-            prev_gray[1] = monitor_area_change(frame, prev_gray[1], monitor_area[1], min_change[1], "change", 2)
-            prev_gray[2] = monitor_area_change(frame, prev_gray[2], monitor_area[2], min_change[2], "change", 3)
             prev_gray_objects = detect_and_mark_objects(frame, prev_gray_objects, big_monitor_area, 500, 50)
+
+        elif ret:
+            monitor_area_change(frame, prev_gray[0], monitor_area[0], min_change[0], "change", 1)
+            detect_and_mark_objects(frame, prev_gray_objects, big_monitor_area, 500, 50)
         
         cv2.imshow("Detection", frame)
 
