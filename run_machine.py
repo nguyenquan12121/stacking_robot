@@ -107,27 +107,25 @@ if __name__ == "__main__":
             box_id += 1
             ConveyorBelt.add_box(new_box)
             Elevator.serial_reset_position()
-            sleep(5)
+            sleep(3)
             Elevator.serial_command_up_1()
-            sleep(2)
+            sleep(3)
             ConveyorBelt.serial_command()
-            sleep(2)
+            sleep(9)
             Elevator.serial_command_down()
-            sleep(2)
+            sleep(5)
             if (n == 1):
                 Elevator.serial_command_up_1()
             if (n == 2):
                 Elevator.serial_command_up_2()
             if (n == 3):
                 Elevator.serial_command_up_3()
-            sleep(2)
             Pusher.serial_command_push()
             sleep(2)
             Pusher.serial_command_pull()
             sleep(2)
             Elevator.serial_command_down()
-            sleep(3)
-
+            sleep(5)
 
         ConveyorBelt.print_boxes()
         Elevator.print_boxes()

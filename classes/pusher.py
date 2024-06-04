@@ -5,10 +5,10 @@ class Pusher:
         self.box = None
 
     def serial_command_push(self):
-        send_command(1, 240, 1000, 2)
+        send_command(1, 200, 1000, 2)
 
     def serial_command_pull(self):
-        send_command(1, 240, 1000, 1)
+        send_command(1, 200, 1000, 1)
         
     def print_boxes(self):
         if self.box == None:
