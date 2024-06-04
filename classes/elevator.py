@@ -11,14 +11,19 @@ class Elevator:
         send_command(2, 250, 9000, 1)
         sleep(9)
         send_command(2, 250, 8000, 1)
+        sleep(8)
         self.pos = 3
 
     def serial_command_up_2(self):
+        sleep(2)
         send_command(2, 250, 8000, 1)
+        sleep(8)
         self.pos = 2
     
     def serial_command_up_1(self):
-        send_command(2, 250, 2500, 1)
+        sleep(2)
+        send_command(2, 250, 2000, 1)
+        sleep(2)
         self.pos = 1
     
     def serial_command_down(self):
@@ -29,7 +34,7 @@ class Elevator:
             send_command(2, 250, 4000, 2) # TODO: GET VALUES
 
         if (self.pos == 1):
-            send_command(2, 250, 3000, 2) # TODO: GET VALUES
+            send_command(2, 250, 2000, 2) # TODO: GET VALUES
 
     def serial_reset_position(self):
             send_command(2, 250, 5000, 2) # TODO: GET VALUES
