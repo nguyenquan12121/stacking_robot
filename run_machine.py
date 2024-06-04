@@ -82,19 +82,19 @@ if __name__ == "__main__":
 #    sys.exit(0)
     
     while True:
-#
+#       
+        command = -1
         #await for sensor input
-        #with open("state.txt", "r") as f:
-        #    command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
-        #    if command_str:
-        #        command = int(command_str)
-#
-        #with open("state.txt", "w") as f:
-        #    f.write("-1")
- #       command = int(input("ENTER COMMAND: "))
+        with open("state.txt", "r") as f:
+           command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
+           if command_str:
+               command = int(command_str)
 
-        command = 0
-        command = int(input("ENTER COMMAND: "))
+        with open("state.txt", "w") as f:
+           f.write("-1")
+
+        #command = 0
+        #command = int(input("ENTER COMMAND: "))
         if command == -1:
             print("IDLING")
         elif command == 0:
@@ -106,8 +106,8 @@ if __name__ == "__main__":
             new_box = Box(box_id, 0)
             box_id += 1
             ConveyorBelt.add_box(new_box)
-            Elevator.serial_command_down()
-            sleep(2)
+            Elevator.serial_reset_position()
+            sleep(5)
             Elevator.serial_command_up_1()
             sleep(2)
             ConveyorBelt.serial_command()
@@ -127,41 +127,7 @@ if __name__ == "__main__":
             sleep(2)
             Elevator.serial_command_down()
             sleep(3)
-            
-        #sensor 2: move elevator
-        elif command == 2:
-        #and ConveyorBelt.boxes.is_empty() == False:
-        #    if Elevator.box != None:
-        #        print("Elevator is full")
-        #        continue
-#            box = ConveyorBelt.remove_box()
-#            Elevator.add_box(box)
-            
-            print("somethign")
-            # inputs = read_input()
-            # Elevator.set_values(2, inputs[0], inputs[1], inputs[2])
-            # Elevator.serial_command()
-        #sensor 3: use pusher
-        elif command == 3:
-       # and Elevator.box != None:
-       #     if Pusher.box != None:
-       #         print("Pusher is full")
-       #         continue
-#            box = Elevator.remove_box()
-#            Pusher.add_box(box)
-            print("something")
-            # inputs = read_input()
-            # Pusher.set_values(3, inputs[0], inputs[1], inputs[2])
-            # Pusher.serial_command()
-        #sensor 4: add to the storage
-        elif command == 4 and Pusher.box != None:
-            box = Pusher.remove_box()
-            Shelf.add_box(box)
-#
-        # elevator goes down
-        elif command == 5:  
-            print("ELEVATOR GOING DOWN")
-            Elevator.serial_command_down()
+
 
         ConveyorBelt.print_boxes()
         Elevator.print_boxes()

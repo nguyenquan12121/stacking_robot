@@ -25,26 +25,26 @@ def receive(socket, signal):
             break
 
 #Get host and port
-# host = input("Host: ")
-# port = int(input("Port: "))
+host = input("Host: ")
+port = int(input("Port: "))
 
-# host = "192.168.178.55"
-# port = 5005
+host = "192.168.178.55"
+port = 5005
 
-# #Attempt connection to server
-# try:
-#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     sock.connect((host, port))
-# except:
-#     print("Could not make a connection to the server")
-#     input("Press enter to quit")
-#     sys.exit(0)
+#Attempt connection to server
+try:
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((host, port))
+except:
+    print("Could not make a connection to the server")
+    input("Press enter to quit")
+    sys.exit(0)
 
-# #Create new thread to wait for data
-# receiveThread = threading.Thread(target = receive, args = (sock, True))
-# receiveThread.start()
+#Create new thread to wait for data
+receiveThread = threading.Thread(target = receive, args = (sock, True))
+receiveThread.start()
 
 def send_message(message):
     print(f"Value: {message}")
-    # if (message == 1):
-    #     sock.sendall(str.encode(message))
+    if (message == 1):
+        sock.sendall(str.encode(message))
