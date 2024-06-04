@@ -83,11 +83,10 @@ if __name__ == "__main__":
 
 #    sock.close()
 #    sys.exit(0)
-
+    
     while True:
 #
         #await for sensor input
-        command = -1
         #with open("state.txt", "r") as f:
         #    command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
         #    if command_str:
@@ -95,11 +94,14 @@ if __name__ == "__main__":
 #
         #with open("state.txt", "w") as f:
         #    f.write("-1")
-        command = int(input("ENTER COMMAND: "))
-        print(str(command) + " HAS BEEN ENTERED")
+ #       command = int(input("ENTER COMMAND: "))
 
+        command = 0
+        command = int(input("ENTER COMMAND: "))
         if command == -1:
             print("IDLING")
+        elif command == 0:
+            Elevator.serial_reset_position()
 #
         #sensor 1: add to the conveyor belt
         elif command == 1:
@@ -139,7 +141,6 @@ if __name__ == "__main__":
             box = Elevator.remove_box()
             Pusher.add_box(box)
             Pusher.serial_command_push()
-            Pusher.serial_command_pull()
             # inputs = read_input()
             # Pusher.set_values(3, inputs[0], inputs[1], inputs[2])
             # Pusher.serial_command()
@@ -147,6 +148,7 @@ if __name__ == "__main__":
         elif command == 4 and Pusher.box != None:
             box = Pusher.remove_box()
             Shelf.add_box(box)
+            Pusher.serial_command_pull()
 #
         # elevator goes down
         elif command == 5:  
