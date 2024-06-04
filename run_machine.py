@@ -106,20 +106,24 @@ if __name__ == "__main__":
             box_id += 1
             ConveyorBelt.add_box(new_box)
             Elevator.serial_command_down()
+            sleep(2)
             Elevator.serial_command_up_1()
+            sleep(2)
             ConveyorBelt.serial_command()
             # inputs = read_input()
             # ConveyorBelt.set_values(1, inputs[0], inputs[1],inputs[2])
             # ConveyorBelt.serial_command()
 #
         #sensor 2: move elevator
-        elif command == 2 and ConveyorBelt.boxes.is_empty() == False:
-            if Elevator.box != None:
-                print("Elevator is full")
-                continue
-            box = ConveyorBelt.remove_box()
-            Elevator.add_box(box)
+        elif command == 2:
+        #and ConveyorBelt.boxes.is_empty() == False:
+        #    if Elevator.box != None:
+        #        print("Elevator is full")
+        #        continue
+#            box = ConveyorBelt.remove_box()
+#            Elevator.add_box(box)
             Elevator.serial_command_down()
+            sleep(2)
             n = int(input("Enter the floor number: "))
             if (n == 1):
                 Elevator.serial_command_up_1()
@@ -132,13 +136,15 @@ if __name__ == "__main__":
             # Elevator.set_values(2, inputs[0], inputs[1], inputs[2])
             # Elevator.serial_command()
         #sensor 3: use pusher
-        elif command == 3 and Elevator.box != None:
-            if Pusher.box != None:
-                print("Pusher is full")
-                continue
-            box = Elevator.remove_box()
-            Pusher.add_box(box)
+        elif command == 3:
+       # and Elevator.box != None:
+       #     if Pusher.box != None:
+       #         print("Pusher is full")
+       #         continue
+#            box = Elevator.remove_box()
+#            Pusher.add_box(box)
             Pusher.serial_command_push()
+            sleep(2)
             Pusher.serial_command_pull()
             # inputs = read_input()
             # Pusher.set_values(3, inputs[0], inputs[1], inputs[2])
