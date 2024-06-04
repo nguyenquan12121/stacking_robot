@@ -68,11 +68,8 @@ if __name__ == "__main__":
     #newConnectionsThread.start()
 
     ConveyorBelt = ConveyorBelt()
-
     Elevator = Elevator()
-
     Pusher = Pusher()
-
     BoxQueue = BoxQueue()
     Stack = Stack()
     Shelf = Shelf() 
@@ -102,38 +99,39 @@ if __name__ == "__main__":
             print("IDLING")
         elif command == 0:
             Elevator.serial_reset_position()
-#
-        #sensor 1: add to the conveyor belt
+
+        #sensor 1: move conveyor belt
         elif command == 1:
             new_box = Box(box_id, 0)
             box_id += 1
-            new_box.set_color("red")
             ConveyorBelt.add_box(new_box)
+            Elevator.serial_command_down()
+            Elevator.serial_command_up_1()
             ConveyorBelt.serial_command()
             # inputs = read_input()
             # ConveyorBelt.set_values(1, inputs[0], inputs[1],inputs[2])
             # ConveyorBelt.serial_command()
 #
-        #sensor 2: add to the elevator
+        #sensor 2: move elevator
         elif command == 2 and ConveyorBelt.boxes.is_empty() == False:
             if Elevator.box != None:
                 print("Elevator is full")
                 continue
             box = ConveyorBelt.remove_box()
             Elevator.add_box(box)
-            match box.color:
-                case "red":
-                    Elevator.serial_command_up_1()
-                case "green":
-                    Elevator.serial_command_up_2()
-                case "blue":
-                    Elevator.serial_command_up_3()
-                case _:
-                    print("Invalid color")
+            Elevator.serial_command_down()
+            n = int(input("Enter the floor number: "))
+            if (n == 1):
+                Elevator.serial_command_up_1()
+            if (n == 2):
+                Elevator.serial_command_up_2()
+            if (n == 3):
+                Elevator.serial_command_up_3()
+
             # inputs = read_input()
             # Elevator.set_values(2, inputs[0], inputs[1], inputs[2])
             # Elevator.serial_command()
-        #sensor 3: add to the pusher
+        #sensor 3: use pusher
         elif command == 3 and Elevator.box != None:
             if Pusher.box != None:
                 print("Pusher is full")
@@ -141,6 +139,7 @@ if __name__ == "__main__":
             box = Elevator.remove_box()
             Pusher.add_box(box)
             Pusher.serial_command_push()
+            Pusher.serial_command_pull()
             # inputs = read_input()
             # Pusher.set_values(3, inputs[0], inputs[1], inputs[2])
             # Pusher.serial_command()
@@ -148,7 +147,6 @@ if __name__ == "__main__":
         elif command == 4 and Pusher.box != None:
             box = Pusher.remove_box()
             Shelf.add_box(box)
-            Pusher.serial_command_pull()
 #
         # elevator goes down
         elif command == 5:  
