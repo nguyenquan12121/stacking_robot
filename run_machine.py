@@ -99,7 +99,7 @@ if __name__ == "__main__":
             print("IDLING")
         elif command == 0:
             Elevator.serial_reset_position()
-
+        
         #sensor 1: move conveyor belt
         elif command == 1:
             new_box = Box(box_id, 0)
