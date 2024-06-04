@@ -5,7 +5,7 @@ class ConveyorBelt:
     def __init__(self):
         self.boxes = BoxQueue()
 
-    def serial_command(self, duration):
+    def serial_command(self, duration = 9000):
         send_command(4, 250, duration, 1)
 
     def print_boxes(self):

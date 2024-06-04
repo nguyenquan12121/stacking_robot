@@ -1,4 +1,5 @@
 from serial_motor import send_command
+from time import sleep
 
 class Elevator:
     def __init__(self):
@@ -6,7 +7,9 @@ class Elevator:
         self.pos = 0
 
     def serial_command_up_3(self):
+        sleep(2)
         send_command(2, 250, 9000, 1)
+        sleep(9)
         send_command(2, 250, 8000, 1)
         self.pos = 3
 
