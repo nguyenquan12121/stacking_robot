@@ -7,11 +7,11 @@ class Elevator:
 
     def serial_command_up_3(self):
         send_command(2, 250, 9000, 1)
-        send_command(2, 250, 4000, 1)
+        send_command(2, 250, 8000, 1)
         self.pos = 3
 
     def serial_command_up_2(self):
-        send_command(2, 250, 6500, 1)
+        send_command(2, 250, 8000, 1)
         self.pos = 2
     
     def serial_command_up_1(self):
