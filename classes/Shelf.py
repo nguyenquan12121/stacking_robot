@@ -3,7 +3,7 @@ class Shelf:
         self.floors = [0, 0, 0]
         
     def add_box(self, floor):
-        self.floors[floor] += 1
+        self.floors[floor - 1] += 1
 
     def next_floor(self):
         min_index = self.floors.index(min(self.floors))
