@@ -6,7 +6,7 @@ cam = cv2.VideoCapture(0)
 
 cv2.namedWindow("Detection")
 
-def monitor_area_change(frame, prev_gray, area, min_change=100, name="Change", value=0):
+def monitor_area_change(prev, frame, prev_gray, area, min_change=100, name="Change", value=0):
     x, y, w, h = area
     monitored_area = frame[y:y+h, x:x+w]
     gray = cv2.cvtColor(monitored_area, cv2.COLOR_BGR2GRAY)
@@ -22,14 +22,16 @@ def monitor_area_change(frame, prev_gray, area, min_change=100, name="Change", v
         if change_value > min_change:
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(frame, f'{name.capitalize()}: {change_value}', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
-            sendMessage.send_message(str(value))
-            print(f"Value: {value}")
+            if prev == 0:
+                sendMessage.send_message(str(value))
+            prev = 1
 
         else:
+            prev = 0
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(frame, f'{name}: {change_value}', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 2)
         
-        return gray
+        return gray, prev
 
 def detect_and_mark_objects(frame, prev_gray, area, min_contour_area=500, threshold_value=25):
     x, y, w, h = area
@@ -58,6 +60,7 @@ if __name__ == "__main__":
     min_change = [20]
     prev_gray_objects = None
     big_monitor_area = [0, 0, 800, 600]
+    prev = 0
 
     while True:
         #inside infinity loop
@@ -74,11 +77,12 @@ if __name__ == "__main__":
         
         if k%256 == 32 or prev_gray_objects is None:
             # SPACE pressed
-            prev_gray[0] = monitor_area_change(frame, prev_gray[0], monitor_area[0], min_change[0], "change", 1)
+            prev_gray[0], prev = monitor_area_change(prev, frame, prev_gray[0], monitor_area[0], min_change[0], "change", 1)
             prev_gray_objects = detect_and_mark_objects(frame, prev_gray_objects, big_monitor_area, 500, 50)
 
         elif ret:
-            monitor_area_change(frame, prev_gray[0], monitor_area[0], min_change[0], "change", 1)
+            s = 0
+            s, prev = monitor_area_change(prev, frame, prev_gray[0], monitor_area[0], min_change[0], "change", 1)
             detect_and_mark_objects(frame, prev_gray_objects, big_monitor_area, 500, 50)
         
         cv2.imshow("Detection", frame)

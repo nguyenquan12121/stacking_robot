@@ -25,11 +25,11 @@ def receive(socket, signal):
             break
 
 #Get host and port
-host = input("Host: ")
-port = int(input("Port: "))
+# host = input("Host: ")
+# port = int(input("Port: "))
 
-host = "192.168.178.55"
-port = 5005
+host = "192.168.8.239"
+port = 123
 
 #Attempt connection to server
 try:
@@ -46,5 +46,4 @@ receiveThread.start()
 
 def send_message(message):
     print(f"Value: {message}")
-    if (message == 1):
-        sock.sendall(str.encode(message))
+    sock.sendall(str.encode(message))

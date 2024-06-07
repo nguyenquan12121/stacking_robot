@@ -92,7 +92,7 @@ if __name__ == "__main__":
 
         with open("state.txt", "w") as f:
            f.write("-1")
-
+    
         #command = 0
         #command = int(input("ENTER COMMAND: "))
         if command == -1:
