@@ -11,13 +11,13 @@ class Elevator:
         send_command(2, 250, 9000, 1)
         sleep(9)
         send_command(2, 250, 3000, 1)
-        sleep(8)
+        sleep(3)
         self.pos = 3
 
     def serial_command_up_2(self):
         sleep(2)
         send_command(2, 250, 6000, 1)
-        sleep(8)
+        sleep(6)
         self.pos = 2
     
     def serial_command_up_1(self):
