@@ -1,7 +1,7 @@
 import socket
 import threading
 import sys
-# import Communicate
+from communicate import Communicate
 
 
 # def unity_action(data):
@@ -12,12 +12,14 @@ import sys
 #Wait for incoming data from server
 #.decode is used to turn the message in bytes to a string
 def receive(socket, signal):
+    c = Communicate()
+
     while signal:
         try:
             data = socket.recv(32)
             print(str(data.decode("utf-8")))
 
-            #unity_action(str(data.decode("utf-8")))
+            c.send_data(str(data.decode("utf-8")))
 
         except:
             print("You have been disconnected from the server")

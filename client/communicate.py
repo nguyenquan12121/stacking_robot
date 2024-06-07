@@ -15,17 +15,17 @@ class Communicate():
         import time
 
         # Create UDP socket to use for sending (and receiving)
-        sock = U.UdpComms(udpIP="127.0.0.1", portTX=8000, portRX=8001, enableRX=False, suppressWarnings=True)
+        self.sock = U.UdpComms(udpIP="127.0.0.1", portTX=8000, portRX=8001, enableRX=False, suppressWarnings=True)
 
 
-        sock.SendData('Action: connected to the python') # Send this string to other application
+        self.sock.SendData('Action: connected to the python') # Send this string to other application
 
         time.sleep(1)
 
-        sock.SendData('Action: None') # Send this string to other application
+        self.sock.SendData('Action: None') # Send this string to other application
 
 
 
-    def send_data(action):
+    def send_data(self, action):
         if action != None:
-            sock.SendData('Action: ' + action) # Send this string to unity application
+            self.sock.SendData('Action: ' + action) # Send this string to unity application

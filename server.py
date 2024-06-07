@@ -1,5 +1,6 @@
 import socket
 import threading
+from time import sleep
 
 #Variables for holding information about connections
 connections = []
@@ -16,6 +17,9 @@ class Client(threading.Thread):
         self.id = id
         self.name = name
         self.signal = signal
+        send_data_thread = threading.Thread(target = self.send_data)
+        send_data_thread.start()
+        
     
     def __str__(self):
         return str(self.id) + " " + str(self.address)
@@ -50,11 +54,19 @@ class Client(threading.Thread):
                 #        client.socket.sendall(data)
 
 
-    def send_data(connections, data):
-        try:
-            self.socket.sendall(str.encode(data))
-        except:
-            print("Error sending data")
+    def send_data(self):
+        # if something is written to send.txt then this content is send to the client
+        while True:
+            with open("send.txt", "r") as f:
+                data = f.read()
+                if data:
+                    try:
+                        self.socket.sendall(str.encode(data))
+                    except:
+                        print("Error sending data")
+                    with open("send.txt", "w") as f:
+                        f.write("")
+            sleep(1)
             
 
 #Wait for new connections
