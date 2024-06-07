@@ -1,14 +1,14 @@
 class Shelf:
     def __init__(self):
-        self.floors = {"red": [], "green":[], "blue":[]}
+        self.floors = [0, 0, 0]
         
-    def add_box(self, box):
-        floor = box.color
-        if floor in self.floors:
-            box.set_location(3)
-            self.floors[floor].append(box)
-        else:
-            raise("Invalid color")
+    def add_box(self, floor):
+        self.floors[floor] += 1
+
+    def next_floor(self):
+        min_index = self.floors.index(min(self.floors))
+        return min_index + 1
+
         
     def remove_box(self, floor, box):
         if floor in self.floors and box in self.floors[floor]:
