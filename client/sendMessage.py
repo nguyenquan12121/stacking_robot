@@ -28,7 +28,7 @@ def receive(socket, signal):
 # host = input("Host: ")
 # port = int(input("Port: "))
 
-host = "192.168.8.239"
+host = "192.168.67.239"
 port = 123
 
 #Attempt connection to server

@@ -101,7 +101,9 @@ if __name__ == "__main__":
 
         #sensor 1: move conveyor belt
         elif command == 1 or command == "1" or command == 11 or command == "11":
-            #n = int(input("Floor:"))
+            with open("state.txt", "w") as f:
+       	        f.write("-2")
+                   
             n = Shelf.next_floor()
             Elevator.serial_reset_position()
             new_box = Box(box_id, 0)
