@@ -88,21 +88,22 @@ if __name__ == "__main__":
         with open("state.txt", "r") as f:
            command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
            if command_str:
-               command = int(command_str)
+                command = int(command_str)
 
         with open("state.txt", "w") as f:
-           f.write("-1")
-    
+       	    f.write("-1")
+               
+        if command != -1:
+            print(command)
         #command = 0
         #command = int(input("ENTER COMMAND: "))
-        if command == -1:
-            print("IDLING")
-        elif command == 0:
+        if command == 0:
             Elevator.serial_reset_position()
 
         #sensor 1: move conveyor belt
-        elif command == 1:
+        elif command == 1 or command == "1" or command == 11 or command == "11":
             n = int(input("Floor:"))
+            Elevator.serial_reset_position()
             new_box = Box(box_id, 0)
             box_id += 1
             ConveyorBelt.add_box(new_box)
@@ -127,8 +128,8 @@ if __name__ == "__main__":
             Elevator.serial_command_down()
             sleep(5)
 
-        ConveyorBelt.print_boxes()
-        Elevator.print_boxes()
-        Pusher.print_boxes()
-        Shelf.print_boxes()
-#
+#        ConveyorBelt.print_boxes()
+#        Elevator.print_boxes()
+#        Pusher.print_boxes()
+#        Shelf.print_boxes()
+##

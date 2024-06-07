@@ -76,4 +76,4 @@ if __name__ == "__main__":
     #Create new thread to wait for connections
     newConnectionsThread = threading.Thread(target = newConnections, args = (sock,))
     newConnectionsThread.start()
-    
+    #Client.run() 
