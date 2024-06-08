@@ -1,3 +1,5 @@
+"Logic for running the box sorter machine."
+
 from classes.elevator import Elevator
 from classes.pusher import Pusher
 from classes.box import Box
@@ -52,8 +54,6 @@ if __name__ == "__main__":
     ConveyorBelt = ConveyorBelt()
     Elevator = Elevator()
     Pusher = Pusher()
-    BoxQueue = BoxQueue()
-    Stack = Stack()
     Shelf = Shelf() 
 
     print("Welcome to the box sorter!")

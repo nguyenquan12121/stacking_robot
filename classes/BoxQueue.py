@@ -1,4 +1,6 @@
 class BoxQueue:
+    "A class to represent a queue of boxes on the conveyor belt."
+
     def __init__(self):
         self.queue = []
 

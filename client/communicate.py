@@ -9,6 +9,7 @@
 # Example of a Python UDP server
 
 class Communicate():
+    "Class for sending data to the Unity application."
 
     def __init__(self):
         import UdpComms as U

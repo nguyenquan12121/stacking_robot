@@ -3,9 +3,10 @@ import threading
 import sys
 from communicate import Communicate
 
-#Wait for incoming data from server
-#.decode is used to turn the message in bytes to a string
+# Wait for incoming data from server
+# .decode is used to turn the message in bytes to a string
 def receive(socket, signal):
+    "Function for receiving data from the server"
     c = Communicate()
 
     while signal:
@@ -21,14 +22,11 @@ def receive(socket, signal):
             signal = False
             break
 
-#Get host and port
-# host = input("Host: ")
-# port = int(input("Port: "))
-
+# Set up server connection
 host = "192.168.67.239"
 port = 123
 
-#Attempt connection to server
+# Attempt connection to server
 try:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     sock.connect((host, port))
@@ -37,10 +35,11 @@ except:
     input("Press enter to quit")
     sys.exit(0)
 
-#Create new thread to wait for data
+# Create new thread to wait for data
 receiveThread = threading.Thread(target = receive, args = (sock, True))
 receiveThread.start()
 
 def send_message(message):
+    "Sends a message to the server its connected to."
     print(f"Value: {message}")
     sock.sendall(str.encode(message))
