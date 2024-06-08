@@ -46,13 +46,18 @@ class Client(threading.Thread):
             # Used in run_machine.py to control the machine components
             if data != "":
                 result = str(data.decode("utf-8"))
-                s = ""
-                with open("state.txt", "r") as f:
-                    s = f.read(str(result))
-                if s != "-2":
-                    with open("state.txt", "w") as f:
+
+                if result == "green" or result == "red" or result == "blue" :
+                    with open("color.txt", "w") as f:
                         f.write(str(result))
-                    
+                else:
+                    s = ""
+                    with open("state.txt", "r") as f:
+                        s = f.read(str(result))
+                    if s != "-2":
+                        with open("state.txt", "w") as f:
+                            f.write(str(result))
+                        
                 print("ID " + str(self.id) + ": " + str(data.decode("utf-8")))
 
 

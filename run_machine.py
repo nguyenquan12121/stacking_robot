@@ -93,6 +93,24 @@ if __name__ == "__main__":
                    
             n = Shelf.next_floor() # Find the next empty floor, in the future this will be replaced by the input of the other group
 
+            with open("color.txt", "r") as f: # Read the color of the box, which is detected by the other group
+                color = f.read().strip()
+                print(color)
+            
+            with open("color.txt", "w") as f:
+                f.write("")
+            
+            if color == "red":
+                n = 1
+            elif color == "green":
+                n = 2
+            elif color == "blue":
+                n = 3
+            elif color == "":
+                print("Box color not detected")
+                print("Putting the box in the next free shelf")
+                Shelf.next_floor()
+
             new_box = Box(box_id, 0)
             box_id += 1
 

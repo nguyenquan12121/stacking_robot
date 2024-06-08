@@ -1,0 +1,11 @@
+Put main and commincation in your root folder where also your main logic script is in.
+
+Replace placeholder.py with your main logic script
+
+To send the color of the box do the following:
+
+above code:
+from commincation import send_message
+
+and then you can use send_message(color) to send the color to the box.
+make sure color is "red", "green" or "blue"
