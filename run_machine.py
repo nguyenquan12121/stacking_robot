@@ -103,6 +103,9 @@ if __name__ == "__main__":
         elif command == 1 or command == "1" or command == 11 or command == "11":
             with open("state.txt", "w") as f:
        	        f.write("-2")
+            
+            with open("send.txt", "w") as f:
+                f.write("new box")
                    
             n = Shelf.next_floor()
             Elevator.serial_reset_position()

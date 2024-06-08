@@ -42,13 +42,16 @@ class Elevator:
             send_command(2, 250, 5000, 2)
         
         if (self.pos == 2):
-            send_command(2, 250, 4000, 2) # TODO: GET VALUES
+            send_command(2, 250, 4000, 2)
 
         if (self.pos == 1):
-            send_command(2, 250, 2000, 2) # TODO: GET VALUES
+            send_command(2, 250, 2000, 2)
 
     def serial_reset_position(self):
-            send_command(2, 250, 5000, 2) # TODO: GET VALUES
+        with open("send.txt", "w") as f:
+            f.write("elevator down")
+        
+        send_command(2, 250, 5000, 2)
     
     def return_position(self):
         return self.pos
