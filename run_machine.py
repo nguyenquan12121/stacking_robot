@@ -11,133 +11,122 @@ import asyncio
 import socket
 import threading
 
-def read_input() -> list:
-    speed = int(input("Input speed: "))
-    duration = int(input("Input duration: "))
-    direction = int(input("Input direction: "))
-    return [speed, duration, direction]
-
-# List to store clients
-clients = ["p"]
-
-# Wait for new connections
-def newConnections(socket):
-    while True:
-        sock, address = socket.accept()
-        client = Client(sock, address, 1, "Name", True)
-        client.start()
-        clients.append(client)  # Add the client to the list
-
 def run_each_component():
-    if clients != []:
-        #client = clients[0]
-        #client.send_data("conveyor active")
-        ConveyorBelt.serial_command(9000)
+    "Function for running each component in a sequence."
 
-        sleep(1)
+    Elevator.serial_reset_position()
 
-        Elevator.serial_command_up_3()
+    sleep(3)
 
-        sleep(1)
+    Elevator.serial_command_up_1()
 
-        Pusher.serial_command_push()
+    sleep(3)
 
-        sleep(1)
+    ConveyorBelt.serial_command()
 
-        Pusher.serial_command_pull()
+    sleep(9)
 
-        sleep(1)
+    Elevator.serial_command_down()
 
-        Elevator.serial_command_down()
+    sleep(5)
+    
+    Elevator.serial_command_up_3()
+    
+    Shelf.add_box(3)
 
-        sleep(1)
-    else:
-        print("No clients connected.")
+    Pusher.serial_command_push()
 
+    sleep(2)
+
+    Pusher.serial_command_pull()
+
+    sleep(2)
+
+    Elevator.serial_command_down()
+
+    sleep(5)
 
 if __name__ == "__main__":
 
-    #host = "localhost"
-    #port = 5005
-#
-    #sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    #sock.bind((host, port))
-    #sock.listen(5)
-#
-    #newConnectionsThread = threading.Thread(target=newConnections, args=(sock,))
-    #newConnectionsThread.start()
-
+    # Create an instance of each component
     ConveyorBelt = ConveyorBelt()
     Elevator = Elevator()
     Pusher = Pusher()
     BoxQueue = BoxQueue()
     Stack = Stack()
     Shelf = Shelf() 
-    box_id = 0
+
     print("Welcome to the box sorter!")
 
-    #run_each_component()
+    #run_each_component() # For testing purposes
 
-#    sock.close()
-#    sys.exit(0)
-    
-    while True:
-#       
+    while True:       
         command = -1
-        #await for sensor input
+
+        # Await for sensor input
         with open("state.txt", "r") as f:
            command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
            if command_str:
                 command = int(command_str)
 
+        # Reset the state
         with open("state.txt", "w") as f:
        	    f.write("-1")
+
+        # If there is a change in command, print it
         if command != -1:
             print(command)
-        #command = 0
-        #command = int(input("ENTER COMMAND: "))
+
+        # If the elevator not in right position reset it
         if command == 0:
             Elevator.serial_reset_position()
 
-        #sensor 1: move conveyor belt
+        # If the command is 1, add a new box and put it in the right shelf
+        # By concurrency, the command can also be 11
         elif command == 1 or command == "1" or command == 11 or command == "11":
             with open("state.txt", "w") as f:
        	        f.write("-2")
             
+            # If a new box is detected, send this to virtual twin
             with open("send.txt", "w") as f:
                 f.write("new box")
                    
-            n = Shelf.next_floor()
-            Elevator.serial_reset_position()
+            n = Shelf.next_floor() # Find the next empty floor, in the future this will be replaced by the input of the other group
+
             new_box = Box(box_id, 0)
             box_id += 1
-            ConveyorBelt.add_box(new_box)
-            Elevator.serial_reset_position()
+
+            Elevator.serial_reset_position() # Reset the elevator position
             sleep(3)
-            Elevator.serial_command_up_1()
+
+            Elevator.serial_command_up_1() # Also the ideal position for the elevator to pick up the box
             sleep(3)
+
             ConveyorBelt.serial_command()
             sleep(9)
-            Elevator.serial_command_down()
-            sleep(5)
+
             if (n == 1):
-                Elevator.serial_command_up_1()
-                Shelf.add_box(n)
+                Shelf.add_box(n) # Then we only push the box onto the platform
+
             if (n == 2):
+                Elevator.serial_command_down() # First go down and then go to the second floor
+                sleep(5)
+
                 Elevator.serial_command_up_2()
                 Shelf.add_box(n)
+
             if (n == 3):
+                Elevator.serial_command_down() # First go down and then go to the third floor
+                sleep(5)
+
                 Elevator.serial_command_up_3()
                 Shelf.add_box(n)
-            Pusher.serial_command_push()
+            
+            Pusher.serial_command_push() # Push the box to the shelf
             sleep(2)
-            Pusher.serial_command_pull()
-            sleep(2)
-            Elevator.serial_command_down()
-            sleep(5)
 
-#        ConveyorBelt.print_boxes()
-#        Elevator.print_boxes()
-#        Pusher.print_boxes()
-#        Shelf.print_boxes()
-##
+            Pusher.serial_command_pull() # Retract the pusher
+            sleep(2)
+
+            Elevator.serial_command_down() # Go down to the ground floor
+            sleep(5)
