@@ -3,12 +3,6 @@ import threading
 import sys
 from communicate import Communicate
 
-
-# def unity_action(data):
-#     if (data == "conveyor active" or data == "conveyor disable" or data == "elevator 1" or data == "elevator 2" or 
-#         data == "elevator 3" or data == "elevator down" or data == "pusher out" or data == "pusher in" ):
-#         Communicate.send_data("data")
-
 #Wait for incoming data from server
 #.decode is used to turn the message in bytes to a string
 def receive(socket, signal):
@@ -17,6 +11,7 @@ def receive(socket, signal):
     while signal:
         try:
             data = socket.recv(32)
+            print("Send to unity: ")
             print(str(data.decode("utf-8")))
 
             c.send_data(str(data.decode("utf-8")))

@@ -6,6 +6,8 @@ class ConveyorBelt:
         self.boxes = BoxQueue()
 
     def serial_command(self, duration = 9000):
+        with open("send.txt", "w") as f:
+            f.write("conveyor active")
         send_command(4, 250, duration, 1)
 
     def print_boxes(self):

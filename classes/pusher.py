@@ -5,9 +5,14 @@ class Pusher:
         self.box = None
 
     def serial_command_push(self):
+        with open("send.txt", "w") as f:
+            f.write("pusher out")
+
         send_command(1, 200, 1000, 2)
 
     def serial_command_pull(self):
+        with open("send.txt", "w") as f:
+            f.write("pusher in")
         send_command(1, 200, 1000, 1)
         
     def print_boxes(self):

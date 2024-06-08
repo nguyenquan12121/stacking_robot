@@ -7,6 +7,9 @@ class Elevator:
         self.pos = 0
 
     def serial_command_up_3(self):
+        with open("send.txt", "w") as f:
+            f.write("elevator 3")
+
         sleep(2)
         send_command(2, 250, 9000, 1)
         sleep(9)
@@ -15,18 +18,26 @@ class Elevator:
         self.pos = 3
 
     def serial_command_up_2(self):
+        with open("send.txt", "w") as f:
+            f.write("elevator 2")
+
         sleep(2)
         send_command(2, 250, 6000, 1)
         sleep(6)
         self.pos = 2
     
     def serial_command_up_1(self):
+        with open("send.txt", "w") as f:
+            f.write("elevator 1")
         sleep(2)
         send_command(2, 250, 1500, 1)
         sleep(2)
         self.pos = 1
     
     def serial_command_down(self):
+        with open("send.txt", "w") as f:
+            f.write("elevator down")
+            
         if (self.pos == 3):
             send_command(2, 250, 5000, 2)
         
