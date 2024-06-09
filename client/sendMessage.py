@@ -1,7 +1,7 @@
 import socket
 import threading
 import sys
-from communicate import Communicate
+from client.communicate import Communicate
 
 # Wait for incoming data from server
 # .decode is used to turn the message in bytes to a string
@@ -32,8 +32,8 @@ try:
     sock.connect((host, port))
 except:
     print("Could not make a connection to the server")
-    input("Press enter to quit")
-    sys.exit(0)
+    # input("Press enter to quit")
+    # sys.exit(0)
 
 # Create new thread to wait for data
 receiveThread = threading.Thread(target = receive, args = (sock, True))
@@ -42,4 +42,7 @@ receiveThread.start()
 def send_message(message):
     "Sends a message to the server its connected to."
     print(f"Value: {message}")
-    sock.sendall(str.encode(message))
+    try:
+        sock.sendall(str.encode(message))
+    except:
+        raise Exception()    

@@ -30,3 +30,23 @@ def test_elevator_serial():
         e.serial_command_down()                
     with pytest.raises(SerialException):
         e.serial_reset_position()        
+
+# Test for print output
+def test_print_boxes_empty(capfd):
+    elevator = Elevator()
+    elevator.print_boxes()
+
+    # Capture the output
+    captured = capfd.readouterr()
+    assert captured.out.strip() == "Elevator is empty"
+    
+# Test for print output
+def test_print_boxes_empty(capfd):
+    elevator = Elevator()
+    b = Box(1,1)
+    elevator.add_box(b)
+    elevator.print_boxes()
+
+    # Capture the output
+    captured = capfd.readouterr()
+    assert captured.out.strip() == "Box ID: 1, Location: Elevator, Color: None"    
