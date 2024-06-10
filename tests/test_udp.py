@@ -40,7 +40,7 @@ def test_udp_comms_read_received_data_none():
     
 @patch('socket.socket')
 def test_read_data(mock_socket):
-    if os.uname().sysname == 'Linux':
+    if os.name == 'posix':
         udp_comms = UdpComms("127.0.0.1", 8000, 8001, enableRX=True)
         with pytest.raises(NameError):
             udp_comms.ReceiveData()
