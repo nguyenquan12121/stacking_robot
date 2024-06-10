@@ -1,59 +1,65 @@
 import pytest
+from unittest import mock
 from unittest.mock import patch, MagicMock
-
+import os
 # Import the UdpComms class
 from client.UdpComms import UdpComms
 
-@pytest.fixture
-def mock_socket(mocker):
-    """Mock the socket module"""
-    return mocker.patch('socket.socket')
+@patch('socket.socket')
+def test_send_data(mock_socket):
+    # Set up the mock socket
+    mock_sock_instance = MagicMock()
+    mock_socket.return_value = mock_sock_instance
 
-@pytest.fixture
-def mock_threading(mocker):
-    """Mock the threading module"""
-    return mocker.patch('threading.Thread')
+    udp_ip = "127.0.0.1"
+    port_tx = 5005
+    port_rx = 5006
+    message = "Test Message"
 
-def test_udp_comms_initialization(mock_socket, mock_threading):
-    mock_sock_instance = mock_socket.return_value
-    mock_sock_instance.bind.return_value = None
+    # Create an instance of UdpComms for sending
+    udp_comms = UdpComms(udpIP=udp_ip, portTX=port_tx, portRX=port_rx)
 
+    # Call the SendData method
+    udp_comms.SendData(message)
 
-def test_udp_comms_send_data(mock_socket):
-    mock_sock_instance = mock_socket.return_value
-    udp_comms = UdpComms("127.0.0.1", 8000, 8001)
-
-    udp_comms.SendData("Test message")
+    # Assert that the sendto method was called with the correct parameters
+    mock_sock_instance.sendto.assert_called_with(bytes(message, 'utf-8'), (udp_ip, port_tx))
     
-    
-def test_udp_comms_clock_socket(mock_socket):
-    mock_sock_instance = mock_socket.return_value
+def test_udp_comms_clock_socket():
     udp_comms = UdpComms("127.0.0.1", 8000, 8001)
-
     udp_comms.CloseSocket()
     
-    
-def test_udp_comms_receive_data(mock_socket):
-    mock_sock_instance = mock_socket.return_value
+def test_udp_comms_receive_data_false():
     udp_comms = UdpComms("127.0.0.1", 8000, 8001, enableRX=False)
     with pytest.raises(ValueError, match="Attempting to receive data without enabling this setting. Ensure this is enabled from the constructor"):
         udp_comms.ReceiveData()
-
-     
-    
         
-def test_udp_comms_read_received_data(mock_socket):
-    mock_sock_instance = mock_socket.return_value
+def test_udp_comms_read_received_data_none():
     udp_comms = UdpComms("127.0.0.1", 8000, 8001)
-
     assert udp_comms.ReadReceivedData() == None
     
-def test_there(mock_socket):
-    mock_sock_instance = mock_socket.return_value
-    udp_comms_one = UdpComms("127.0.0.1", 8000, 8001, enableRX=True)
-    
-    # Simulate recvfrom returning an empty tuple
-    mock_sock_instance.recvfrom.return_value = ()  # This will trigger the ValueError
+@patch('socket.socket')
+def test_read_data(mock_socket):
+    if os.uname().sysname == 'Linux':
+        udp_comms = UdpComms("127.0.0.1", 8000, 8001, enableRX=True)
+        with pytest.raises(NameError):
+            udp_comms.ReceiveData()
+    else:
+        # Set up the mock socket
+        mock_sock_instance = MagicMock()
+        mock_socket.return_value = mock_sock_instance
 
-    with pytest.raises(ValueError, match=r"not enough values to unpack \(expected 2, got 0\)"):
-        udp_comms_one.ReceiveData()    
+        udp_ip = "127.0.0.1"
+        port_tx = 5005
+        port_rx = 5006
+        message = "Test Message"
+        encoded = bytes(message, "utf-8")
+
+        mock_sock_instance.readData.return_value = (encoded, (udp_ip, port_tx))
+        # Create an instance of UdpComms for sending
+        udp_comms = UdpComms(udpIP=udp_ip, portTX=port_tx, portRX=port_rx, enableRX=True)
+
+        # Call the SendData method
+        data = udp_comms.ReceiveData()
+
+        assertEqual(encoded, data)

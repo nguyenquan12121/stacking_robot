@@ -5,7 +5,6 @@ from classes.pusher import Pusher
 from classes.box import Box
 from classes.BoxQueue import BoxQueue
 from classes.ConveyorBelt import ConveyorBelt
-from classes.stack import Stack
 from classes.Shelf import Shelf
 from time import sleep
 from server import Client
