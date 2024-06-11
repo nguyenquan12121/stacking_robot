@@ -58,6 +58,7 @@ def check_blockage():
             command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
             if command_str:
                 command = int(command_str)
+        print("Blockage detected")
     return
 
 if __name__ == "__main__":
