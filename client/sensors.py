@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from client import sendMessage
+import sendMessage
 
 cam = cv2.VideoCapture(0)
 
