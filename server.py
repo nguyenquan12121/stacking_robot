@@ -54,9 +54,10 @@ class Client(threading.Thread):
                     s = ""
                     with open("state.txt", "r") as f:
                         s = f.read(str(result))
+                        print(s)
                     if s != "-2":
                         with open("state.txt", "w") as f:
-                            f.write(str(result))
+                            f.write(result)
                         
                 print("ID " + str(self.id) + ": " + str(data.decode("utf-8")))
 

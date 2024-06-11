@@ -22,22 +22,20 @@ def receive(socket, signal):
             signal = False
             break
 
-# # Set up server connection
-# host = "192.168.67.239"
-# port = 123
-
-# # Attempt connection to server
-# try:
-#     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#     sock.connect((host, port))
-# except:
-#     print("Could not make a connection to the server")
-#     input("Press enter to quit")
-#     sys.exit(0)
-
-# # Create new thread to wait for data
-# receiveThread = threading.Thread(target = receive, args = (sock, True))
-# receiveThread.start()
+# Set up server connection
+host = "192.168.67.239"
+port = 12
+# Attempt connection to server
+try:
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.connect((host, port))
+except:
+    print("Could not make a connection to the server")
+    input("Press enter to quit")
+    sys.exit(0)
+# Create new thread to wait for data
+receiveThread = threading.Thread(target = receive, args = (sock, True))
+receiveThread.start()
 
 def send_message(message):
     "Sends a message to the server its connected to."
