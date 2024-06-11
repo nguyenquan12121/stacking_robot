@@ -63,7 +63,8 @@ if __name__ == "__main__":
     ConveyorBelt = ConveyorBelt()
     Elevator = Elevator()
     Pusher = Pusher()
-    Shelf = Shelf() 
+    Shelf = Shelf()
+    box_id = 0
 
     print("Welcome to the box sorter!")
 
@@ -120,8 +121,11 @@ if __name__ == "__main__":
                 print("Putting the box in the next free shelf")
                 Shelf.next_floor()
 
-            #new_box = Box(box_id, 0)
-            #box_id += 1
+            new_box = Box(box_id, 0)
+            box_id += 1
+
+            if Shelf.isFull():
+                raise Exception("Shelf is full")
 
             check_blockage()
 

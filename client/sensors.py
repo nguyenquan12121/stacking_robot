@@ -24,7 +24,7 @@ def monitor_area_change(isFirst, prev, frame, prev_gray, area, min_change=100, n
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(frame, f'{name.capitalize()}: {change_value}', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
             if prev == 0:
-                if (not isFirst):
+                if (isFirst):
                     sendMessage.send_message(str(value))
             prev = 1
 
@@ -63,7 +63,7 @@ def detect_and_mark_objects(last, frame, prev_gray, area, min_contour_area=500, 
             last = 1
         else:
             last = 0
-            sendMessage.send_message("0")
+            #sendMessage.send_message("0")
         return gray, last
 
 if __name__ == "__main__":

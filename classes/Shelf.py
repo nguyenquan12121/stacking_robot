@@ -3,6 +3,7 @@ class Shelf:
 
     def __init__(self):
         self.floors = [0, 0, 0]
+        self.maxval = 2
         
     def add_box(self, floor):
         "Add a box to the shelf."
@@ -12,4 +13,9 @@ class Shelf:
         "Return the floor with the least number of boxes."
         min_index = self.floors.index(min(self.floors))
         return min_index + 1
+    
+    def isFull(self):
+        if (self.floors[0] == self.maxval and self.floors[1] == self.maxval and self.floors[2] == self.maxval):
+            return True
+        return False
 
