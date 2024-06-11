@@ -1,7 +1,17 @@
+import serial
 import pytest
 from serial import SerialException
 from classes.ConveyorBelt import ConveyorBelt
 from classes.box import Box
+
+def ttyACM0_accessibility():
+    try:
+        # Try to open the interface with a timeout of 1 second
+        ser = serial.Serial('/dev/ttyACM0', timeout=1)
+        ser.close()
+        return True
+    except serial.SerialException as e:
+        return False
 
 def test_conveyorbelt_box():
     cb = ConveyorBelt()
@@ -12,5 +22,8 @@ def test_conveyorbelt_box():
     
 def test_conveyor_serial():
     cb = ConveyorBelt()
-    with pytest.raises(SerialException):
+    if not ttyACM0_accessibility():
+        with pytest.raises(SerialException):
+            cb.serial_command()
+    else:           
         cb.serial_command()
