@@ -34,7 +34,7 @@ Motor number (1 to 4)-Speed (0 to 255)-Duration(<9999 >1000)-Direction(1 forward
 ```
 ## Running the tests
 
-Ensure that `pytest` and `pytest-cov` is installed
+Ensure that `pytest`, `pytest-cov`, `pytest-mock` and `pyserial` are installed
 
 Simply execute this command in the root directory to run the tests
 ```
