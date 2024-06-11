@@ -127,11 +127,18 @@ if __name__ == "__main__":
             #new_box = Box(box_id, 0)
             #box_id += 1
 
+            check_blockage()
+
             Elevator.serial_reset_position() # Reset the elevator position
             sleep(3)
 
             Elevator.serial_command_up_1() # Also the ideal position for the elevator to pick up the box
             sleep(3)
+
+            check_blockage()
+
+            ConveyorBelt.serial_command()
+            sleep(9)
 
             #check if the box reached the pusher
             with open("state.txt", "r") as f:
@@ -146,11 +153,6 @@ if __name__ == "__main__":
                         command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
                         if command_str:
                             command = int(command_str)
-            check_blockage()
-
-            ConveyorBelt.serial_command()
-            sleep(9)
-
             check_blockage()
 
             if (n == 1):

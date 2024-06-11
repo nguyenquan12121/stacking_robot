@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-from . import sendMessage
+import sendMessage
 
 cam = cv2.VideoCapture(1) # Set for correct camera
 
