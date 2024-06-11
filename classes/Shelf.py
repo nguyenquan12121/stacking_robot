@@ -4,10 +4,13 @@ class Shelf:
     def __init__(self):
         self.floors = [0, 0, 0]
         self.maxval = 2
+        self.boxes = []
         
-    def add_box(self, floor):
+    def add_box(self, floor, box):
         "Add a box to the shelf."
         self.floors[floor - 1] += 1
+        self.boxes.append(box)
+        box.set_location(floor)
 
     def next_floor(self):
         "Return the floor with the least number of boxes."
