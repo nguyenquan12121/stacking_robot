@@ -124,7 +124,7 @@ if __name__ == "__main__":
             new_box = Box(box_id, 0)
             box_id += 1
 
-            if Shelf.isFull():
+            if Shelf.floorFull(n):
                 raise Exception("Shelf is full")
 
             check_blockage()

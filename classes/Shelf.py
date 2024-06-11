@@ -18,4 +18,9 @@ class Shelf:
         if (self.floors[0] == self.maxval and self.floors[1] == self.maxval and self.floors[2] == self.maxval):
             return True
         return False
+    
+    def floorFull(self, floor):
+        if self.floors[floor - 1] == self.maxval:
+            return True
+        return False
 
