@@ -1,7 +1,18 @@
 import pytest
+import serial
 from serial import SerialException
 from classes.elevator import Elevator
 from classes.box import Box
+
+def ttyACM0_accessibility():
+    try:
+        # Try to open the interface with a timeout of 1 second
+        ser = serial.Serial('/dev/ttyACM0', timeout=1)
+        ser.close()
+        return True
+    except serial.SerialException as e:
+        return False
+
 
 def test_elevator():
     e = Elevator()
@@ -13,23 +24,35 @@ def test_elevator():
     
 def test_elevator_serial():
     e = Elevator()
-    with pytest.raises(SerialException):
+    if not ttyACM0_accessibility():
+        with pytest.raises(SerialException):
+            e.serial_command_up_1()
+        with pytest.raises(SerialException):
+            e.serial_command_up_2()
+        with pytest.raises(SerialException):
+            e.serial_command_up_3()
+        with pytest.raises(SerialException):
+            e.pos = 1
+            e.serial_command_down()
+        with pytest.raises(SerialException):
+            e.pos = 2
+            e.serial_command_down()
+        with pytest.raises(SerialException):
+            e.pos = 3
+            e.serial_command_down()                
+        with pytest.raises(SerialException):
+            e.serial_reset_position()
+    else:
         e.serial_command_up_1()
-    with pytest.raises(SerialException):
         e.serial_command_up_2()
-    with pytest.raises(SerialException):
         e.serial_command_up_3()
-    with pytest.raises(SerialException):
         e.pos = 1
         e.serial_command_down()
-    with pytest.raises(SerialException):
         e.pos = 2
-        e.serial_command_down()
-    with pytest.raises(SerialException):
+        e.serial_command_down()         
         e.pos = 3
-        e.serial_command_down()                
-    with pytest.raises(SerialException):
-        e.serial_reset_position()        
+        e.serial_command_down()                 
+        e.serial_reset_position()
 
 # Test for print output
 def test_print_boxes_empty(capfd):
