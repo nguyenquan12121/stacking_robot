@@ -1,13 +1,13 @@
 import socket
 import threading
 import sys
-#from client.communicate import Communicate
+from communicate import Communicate
 
 # Wait for incoming data from server
 # .decode is used to turn the message in bytes to a string
 def receive(socket, signal):
     "Function for receiving data from the server"
-    # c = Communicate()
+    c = Communicate()
 
     while signal:
         try:
@@ -15,7 +15,7 @@ def receive(socket, signal):
             print("Send to unity: ")
             print(str(data.decode("utf-8")))
 
-            #c.send_data(str(data.decode("utf-8")))
+            c.send_data(str(data.decode("utf-8")))
 
         except:
             print("You have been disconnected from the server")
