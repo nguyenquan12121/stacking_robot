@@ -23,8 +23,8 @@ def receive(socket, signal):
             break
 
 # Set up server connection
-host = "192.168.67.239"
-port = 12
+host = "192.168.183.239"
+port = 123
 # Attempt connection to server
 try:
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -40,4 +40,4 @@ receiveThread.start()
 def send_message(message):
     "Sends a message to the server its connected to."
     print(f"Value: {message}")
-    #sock.sendall(str.encode(message))
+    sock.sendall(str.encode(message))
