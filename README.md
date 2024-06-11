@@ -1,5 +1,14 @@
 # CBL36
 
+## How to setup the pi and the arduino:
+- First plug in the arduino into the pi using the usb cable
+- Then plug in the power of the arduino and the raspberry pi
+- Connect an ethernet cable from the pi to the laptop
+- Connect the pi by using ``ssh pi@raspberrypi.local``
+- Use a phone to setup a wifi network
+- Connect the pi to this network and run the main.py
+- Connect the client to this network and run the main.py on the client
+
 ## Setup on raspberry pi:
 - Clone the repository
 - Run main.py
