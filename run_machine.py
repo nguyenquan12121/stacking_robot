@@ -7,10 +7,6 @@ from classes.BoxQueue import BoxQueue
 from classes.ConveyorBelt import ConveyorBelt
 from classes.Shelf import Shelf
 from time import sleep
-from server import Client
-import asyncio
-import socket
-import threading
 
 def run_each_component():
     "Function for running each component in a sequence."

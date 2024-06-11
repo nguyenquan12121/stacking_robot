@@ -1,12 +1,13 @@
 import cv2
 import numpy as np
+from time import sleep
 import sendMessage
 
 cam = cv2.VideoCapture(1) # Set for correct camera
 
 cv2.namedWindow("Detection")
 
-def monitor_area_change(prev, frame, prev_gray, area, min_change=100, name="=", value=0):
+def monitor_area_change(isFirst, prev, frame, prev_gray, area, min_change=100, name="=", value=0):
     x, y, w, h = area
     monitored_area = frame[y:y+h, x:x+w]
     gray = cv2.cvtColor(monitored_area, cv2.COLOR_BGR2GRAY)
@@ -23,7 +24,8 @@ def monitor_area_change(prev, frame, prev_gray, area, min_change=100, name="=", 
             cv2.rectangle(frame, (x, y), (x + w, y + h), (0, 255, 0), 2)
             cv2.putText(frame, f'{name.capitalize()}: {change_value}', (x, y - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
             if prev == 0:
-                sendMessage.send_message(str(value))
+                if (not isFirst):
+                    sendMessage.send_message(str(value))
             prev = 1
 
         else:
@@ -54,13 +56,14 @@ def detect_and_mark_objects(last, frame, prev_gray, area, min_contour_area=500, 
 
         cv2.putText(frame, f'{diff_sum}', (100, 100), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
 
-        if (diff_sum > 20000):
+        if (diff_sum > 100000):
             if (last == 0):
                 sendMessage.send_message("3")
             cv2.putText(frame, f'SOMETHING IS BLOCKING', (300, 300), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 5)
             last = 1
         else:
             last = 0
+            sendMessage.send_message("0")
         return gray, last
 
 if __name__ == "__main__":
@@ -71,9 +74,11 @@ if __name__ == "__main__":
     big_monitor_area = [0, 0, 800, 600]
     prev = [0, 0]
     last = 0
+    isFirst = False
 
     while True:
         #inside infinity loop
+        sleep(0.1)
         ret, frame = cam.read()
         if not ret:
             print("Failed to grab frame")
@@ -87,17 +92,18 @@ if __name__ == "__main__":
         
         if k%256 == 32 or prev_gray_objects is None:
             # SPACE pressed
-            prev_gray[0], prev[0] = monitor_area_change(prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
-            prev_gray[1], prev[1] = monitor_area_change(prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 2)
+            prev_gray[0], prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
+            prev_gray[1], prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 2)
             prev_gray_objects, last = detect_and_mark_objects(last, frame, prev_gray_objects, big_monitor_area, 500, 50)
 
         elif ret:
             s = 0
-            s, prev[0] = monitor_area_change(prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
-            s, prev[1] = monitor_area_change(prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 2)
+            s, prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
+            s, prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 2)
             s, last = detect_and_mark_objects(last, frame, prev_gray_objects, big_monitor_area, 500, 50)
         
         cv2.imshow("Detection", frame)
+        isFirst = True
 
 
 

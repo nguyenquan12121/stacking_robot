@@ -11,11 +11,11 @@ class Pusher:
         with open("send.txt", "w") as f:
             f.write("pusher out")
 
-        send_command(1, 200, 1000, 2)
+        send_command(1, 100, 4000, 2)
 
     def serial_command_pull(self):
         "Send command to the pusher motor to retract."
 
         with open("send.txt", "w") as f:
             f.write("pusher in")
-        send_command(1, 200, 1000, 1)
+        send_command(1, 190, 4000, 1)
