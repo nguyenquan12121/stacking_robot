@@ -110,9 +110,6 @@ if __name__ == "__main__":
                 print("Putting the box in the next free shelf")
                 Shelf.next_floor()
 
-            new_box = Box(box_id, 0)
-            box_id += 1
-
             Elevator.serial_reset_position() # Reset the elevator position
             sleep(3)
 
