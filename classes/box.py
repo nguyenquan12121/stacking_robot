@@ -1,4 +1,4 @@
-position_mapper = ["1, 2, 3"]
+position_mapper = ["1", "2", "3"]
 
 class Box:
     "A class for creating a box object."

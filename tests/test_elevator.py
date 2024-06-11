@@ -49,4 +49,4 @@ def test_print_boxes_empty(capfd):
 
     # Capture the output
     captured = capfd.readouterr()
-    assert captured.out.strip() == "Box ID: 1, Location: Elevator, Color: None"    
+    assert captured.out.strip() == "Box ID: 1, Location: 2, Color: None"    
