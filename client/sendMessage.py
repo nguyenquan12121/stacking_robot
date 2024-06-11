@@ -15,7 +15,7 @@ def receive(socket, signal):
             print("Send to unity: ")
             print(str(data.decode("utf-8")))
 
-            c.send_data(str(data.decode("utf-8")))
+            #c.send_data(str(data.decode("utf-8")))
 
         except:
             print("You have been disconnected from the server")
