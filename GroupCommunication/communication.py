@@ -10,8 +10,8 @@ try:
     sock.connect((host, port))
 except:
     print("Could not make a connection to the server")
-    input("Press enter to quit")
-    sys.exit(0)
+    # input("Press enter to quit")
+    # sys.exit(0)
 
 def send_message(message):
     "Sends a message to the server its connected to."

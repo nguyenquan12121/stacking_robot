@@ -1,5 +1,14 @@
 # CBL36
 
+## How to setup the pi and the arduino:
+- First plug in the arduino into the pi using the usb cable
+- Then plug in the power of the arduino and the raspberry pi
+- Connect an ethernet cable from the pi to the laptop
+- Connect the pi by using ``ssh pi@raspberrypi.local``
+- Use a phone to setup a wifi network
+- Connect the pi to this network and run the main.py
+- Connect the client to this network and run the main.py on the client
+
 ## Setup on raspberry pi:
 - Clone the repository
 - Run main.py
@@ -25,7 +34,7 @@ Motor number (1 to 4)-Speed (0 to 255)-Duration(<9999 >1000)-Direction(1 forward
 ```
 ## Running the tests
 
-Ensure that `pytest` and `pytest-cov` is installed
+Ensure that `pytest`, `pytest-cov`, `pytest-mock` and `pyserial` are installed
 
 Simply execute this command in the root directory to run the tests
 ```
