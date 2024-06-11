@@ -43,5 +43,5 @@ pytest
 
 To see the test coverage for the entire project, run this command in the root dir:
 ```
-pytest --cov=classes --cov=GroupCommunication --cov=client
+pytest --cov=classes --cov=GroupCommunication --cov=client --cov-config=.coveragerc --disable-warnings
 ```
