@@ -148,11 +148,16 @@ if __name__ == "__main__":
             if command == 2:
                 print("Box reached the pusher")
             else:
-                while command != 2:
-                    with open("state.txt", "r") as f:
-                        command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
-                        if command_str:
-                            command = int(command_str)
+                sleep(5)
+                with open("state.txt", "r") as f:
+                    command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
+                    if command_str:
+                        command = int(command_str)
+                if command == 2:
+                    print("Box reached the pusher")
+                else:
+                    raise Exception("Box not reached the pusher")
+                
             check_blockage()
 
             if (n == 1):
