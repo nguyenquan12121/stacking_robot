@@ -161,21 +161,21 @@ if __name__ == "__main__":
             check_blockage()
 
             if (n == 1):
-                Shelf.add_box(n) # Then we only push the box onto the platform
+                Shelf.add_box(n, new_box) # Then we only push the box onto the platform
 
             if (n == 2):
                 Elevator.serial_command_down() # First go down and then go to the second floor
                 sleep(5)
 
                 Elevator.serial_command_up_2()
-                Shelf.add_box(n)
+                Shelf.add_box(n, new_box)
 
             if (n == 3):
                 Elevator.serial_command_down() # First go down and then go to the third floor
                 sleep(5)
 
                 Elevator.serial_command_up_3()
-                Shelf.add_box(n)
+                Shelf.add_box(n, new_box)
             
             check_blockage()
             Pusher.serial_command_push() # Push the box to the shelf

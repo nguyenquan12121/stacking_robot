@@ -23,7 +23,7 @@ def receive(socket, signal):
             break
 
 # Set up server connection
-host = "192.168.183.239"
+host = "192.168.72.239"
 port = 123
 # Attempt connection to server
 try:

@@ -68,7 +68,7 @@ def detect_and_mark_objects(last, frame, prev_gray, area, min_contour_area=500, 
 
 if __name__ == "__main__":
     prev_gray = [0, 0, 0]
-    monitor_area = [(565 , 205, 55, 55), (280, 185, 55, 70), (370, 185, 55, 55)]
+    monitor_area = [(565 , 205, 55, 55), (280, 185, 55, 70), (370, 200, 55, 55)]
     min_change = [20, 10, 20]
     prev_gray_objects = None
     big_monitor_area = [0, 0, 800, 600]
