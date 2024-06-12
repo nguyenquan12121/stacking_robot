@@ -49,7 +49,7 @@ def check_blockage():
         command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
         if command_str:
             command = int(command_str)
-    while(command == 3 or command == 333 or command == 33 ):
+    while (command == 3 or command == 333 or command == 33 ):
         with open("state.txt", "r") as f:
             command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
             if command_str:
