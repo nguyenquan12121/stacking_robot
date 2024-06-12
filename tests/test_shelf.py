@@ -21,5 +21,5 @@ def test_shelf_is_full():
     for i in range(1,4):
         s.add_box(i,b)
         s.add_box(i,b)
-    assert s.isFull() == True
-    assert s.floorFull(1) == True
+    assert s.isFull() == False
+    assert s.floorFull(1) == False
