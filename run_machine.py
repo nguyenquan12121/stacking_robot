@@ -135,6 +135,8 @@ if __name__ == "__main__":
             
             with open("color.txt", "w") as f:
                 f.write("")
+
+            sleep(2) # Wait for the message to get picked up
             
             with open("send.txt", "w") as f:
                 f.write("new box")
