@@ -2,10 +2,11 @@
 __pycache__/
 *.py[cod]
 classes/__pycache__/
+client/__pycache__/
+.pytest_cache/
 
 # C extensions
 *.so
-
 # Distribution / packaging
 bin/
 build/
