@@ -105,6 +105,7 @@ if __name__ == "__main__":
             # SPACE pressed
             conveyorActive = False
             isFirst = False
+            counter = 0
             if (not conveyorActive):
                 prev_gray[0], prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
             prev_gray[1], prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 5)
