@@ -34,8 +34,9 @@ Motor number (1 to 4)-Speed (0 to 255)-Duration(<9999 >1000)-Direction(1 forward
 ```
 ## Running the tests
 
-Ensure that `pytest`, `pytest-cov`, `pytest-mock` and `pyserial` are installed
-If you are on windows
+Ensure that `pytest`, `pytest-cov`, `pytest-mock` and `pyserial` are installed.
+
+If you are on windows, run the following:
 ```
 pip install pytest pytest-cov pytest-mock pyserial
 ```
