@@ -84,7 +84,11 @@ if __name__ == "__main__":
 
         with open("state.txt", "r") as f:
             if (f.read().strip() == "conveyor"):
+                counter = 0
                 conveyorActive = True
+
+        with open("state.txt", "w") as f:
+            f.write("")
 
         ret, frame = cam.read()
         if not ret:
@@ -119,8 +123,6 @@ if __name__ == "__main__":
 
         if (counter > 90):
             conveyorActive = False
-
-
 
     cam.release()
     cv2.destroyAllWindows()
