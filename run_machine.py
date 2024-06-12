@@ -110,6 +110,9 @@ if __name__ == "__main__":
             with open("color.txt", "w") as f:
                 f.write("")
             
+            with open("send.txt", "w") as f:
+                f.write("new box")
+            
             if color == "red":
                 n = 1
             elif color == "green":
@@ -145,7 +148,7 @@ if __name__ == "__main__":
                 command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
                 if command_str:
                     command = int(command_str)
-            if command == 2:
+            if command == 5:
                 print("Box reached the pusher")
             else:
                 sleep(5)
@@ -153,7 +156,7 @@ if __name__ == "__main__":
                     command_str = f.read().strip()  # Read the value as a string and remove leading/trailing whitespace
                     if command_str:
                         command = int(command_str)
-                if command == 2:
+                if command == 5:
                     print("Box reached the pusher")
                 else:
                     raise Exception("Box not reached the pusher")
