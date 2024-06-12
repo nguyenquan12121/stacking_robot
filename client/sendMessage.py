@@ -15,6 +15,10 @@ def receive(socket, signal):
             print("Send to unity: ")
             print(str(data.decode("utf-8")))
 
+            if (str(data.decode("utf-8")) == "conveyor active"):
+                with open("state.txt", "w") as f:
+                    f.write("conveyor")
+
             c.send_data(str(data.decode("utf-8")))
 
         except:

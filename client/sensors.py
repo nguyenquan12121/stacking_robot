@@ -75,10 +75,17 @@ if __name__ == "__main__":
     prev = [0, 0, 0]
     last = 0
     isFirst = False
+    conveyorActive = False
+    counter = 0
 
     while True:
         #inside infinity loop
-        #sleep(0.1)
+        sleep(0.1)
+
+        with open("state.txt", "r") as f:
+            if (f.read().strip() == "conveyor"):
+                conveyorActive = True
+
         ret, frame = cam.read()
         if not ret:
             print("Failed to grab frame")
@@ -92,20 +99,26 @@ if __name__ == "__main__":
         
         if k%256 == 32 or prev_gray_objects is None:
             # SPACE pressed
-            prev_gray[0], prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
-            prev_gray[1], prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 2)
+            if (not conveyorActive):
+                prev_gray[0], prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
+            #prev_gray[1], prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 2)
             prev_gray[2], prev[2] = monitor_area_change(isFirst, prev[2], frame, prev_gray[2], monitor_area[2], min_change[2], "3:", 5)
             prev_gray_objects, last = detect_and_mark_objects(last, frame, prev_gray_objects, big_monitor_area, 500, 50)
 
         elif ret:
             s = 0
-            s, prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
-            s, prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 2)
+            if (not conveyorActive):
+                s, prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
+            #s, prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 2)
             s, prev[2] = monitor_area_change(isFirst, prev[2], frame, prev_gray[2], monitor_area[2], min_change[2], "3:", 5)
             s, last = detect_and_mark_objects(last, frame, prev_gray_objects, big_monitor_area, 500, 50)
         
         cv2.imshow("Detection", frame)
         isFirst = True
+        counter += 1
+
+        if (counter > 90):
+            conveyorActive = False
 
 
 

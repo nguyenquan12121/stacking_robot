@@ -71,28 +71,28 @@ if __name__ == "__main__":
     #run_each_component() # For testing purposes
 
 
-    Elevator.serial_reset_position()
+    #Elevator.serial_reset_position()
 
-    sleep(5)
+    #sleep(5)
 
-    Elevator.serial_command_up_3()
-    sleep(5)
+    #Elevator.serial_command_up_3()
+    #sleep(5)
 
-    Elevator.serial_command_down()
+    #Elevator.serial_command_down()
 
-    sleep(5)
+    #sleep(5)
 
-    Elevator.serial_command_up_2()
+    #Elevator.serial_command_up_2()
 
-    sleep(5)
+    #sleep(5)
 
-    Elevator.serial_command_down()
+    #Elevator.serial_command_down()
 
-    sleep(5)
+    #sleep(5)
 
-    Elevator.serial_command_up_1()
+    #Elevator.serial_command_up_1()
 
-    sleep(5)
+    #sleep(5)
 
 
 
