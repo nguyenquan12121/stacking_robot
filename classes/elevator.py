@@ -17,7 +17,7 @@ class Elevator:
         sleep(2)
         send_command(2, 250, 9000, 1)
         sleep(9)
-        send_command(2, 250, 9000, 1)
+        send_command(2, 250, 7000, 1)
         sleep(3)
         self.pos = 3
 
@@ -28,7 +28,7 @@ class Elevator:
             f.write("elevator 2")
 
         sleep(2)
-        send_command(2, 250, 9000, 1)
+        send_command(2, 250, 7000, 1)
         sleep(6)
         self.pos = 2
     
