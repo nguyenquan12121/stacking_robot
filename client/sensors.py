@@ -86,6 +86,7 @@ if __name__ == "__main__":
             if (f.read().strip() == "conveyor"):
                 counter = 0
                 conveyorActive = True
+                prev_gray[1], prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 5)
 
         with open("state.txt", "w") as f:
             f.write("")
@@ -108,6 +109,7 @@ if __name__ == "__main__":
             counter = 0
             if (not conveyorActive):
                 prev_gray[0], prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
+            
             prev_gray[1], prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 5)
             #prev_gray[2], prev[2] = monitor_area_change(isFirst, prev[2], frame, prev_gray[2], monitor_area[2], min_change[2], "3:", 5)
             prev_gray_objects, last = detect_and_mark_objects(last, frame, prev_gray_objects, big_monitor_area, 500, 50)
@@ -116,7 +118,9 @@ if __name__ == "__main__":
             s = 0
             if (not conveyorActive):
                 s, prev[0] = monitor_area_change(isFirst, prev[0], frame, prev_gray[0], monitor_area[0], min_change[0], "1:", 1)
-            s, prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 5)
+
+            if (conveyorActive):
+                s, prev[1] = monitor_area_change(isFirst, prev[1], frame, prev_gray[1], monitor_area[1], min_change[1], "2:", 5)
             #s, prev[2] = monitor_area_change(isFirst, prev[2], frame, prev_gray[2], monitor_area[2], min_change[2], "3:", 5)
             s, last = detect_and_mark_objects(last, frame, prev_gray_objects, big_monitor_area, 500, 50)
         

@@ -3,7 +3,7 @@ class Shelf:
 
     def __init__(self):
         self.floors = [0, 0, 0]
-        self.maxval = 2
+        self.maxval = 1
         self.boxes = []
         
     def add_box(self, floor, box):
