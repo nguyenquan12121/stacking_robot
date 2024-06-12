@@ -38,7 +38,7 @@ class Elevator:
         with open("send.txt", "w") as f:
             f.write("elevator 1")
         sleep(2)
-        send_command(2, 250, 1500, 1)
+        send_command(2, 250, 2000, 1)
         sleep(2)
         self.pos = 1
     
