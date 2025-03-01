@@ -1,6 +1,6 @@
 # CBL36
 
-## What it looks like
+## A 3D Render of the machine
 ![alt text](https://cdn.discordapp.com/attachments/1316984354882457763/1345405437893279785/IMG-20240616-WA0004.jpg?ex=67c46df4&is=67c31c74&hm=91a4c8c845e7e5d14040ffaa445616acb19c4d252146d849b86f990adb749d77&)
 
 ## How to setup the pi and the arduino:
